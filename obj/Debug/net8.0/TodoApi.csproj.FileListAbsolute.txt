@@ -5,11 +5,18 @@ D:\C#\TodoApi\bin\Debug\net8.0\TodoApi.deps.json
 D:\C#\TodoApi\bin\Debug\net8.0\TodoApi.runtimeconfig.json
 D:\C#\TodoApi\bin\Debug\net8.0\TodoApi.dll
 D:\C#\TodoApi\bin\Debug\net8.0\TodoApi.pdb
+D:\C#\TodoApi\bin\Debug\net8.0\Microsoft.OpenApi.dll
+D:\C#\TodoApi\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+D:\C#\TodoApi\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\C#\TodoApi\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+D:\C#\TodoApi\obj\Debug\net8.0\TodoApi.csproj.AssemblyReference.cache
 D:\C#\TodoApi\obj\Debug\net8.0\TodoApi.GeneratedMSBuildEditorConfig.editorconfig
 D:\C#\TodoApi\obj\Debug\net8.0\TodoApi.AssemblyInfoInputs.cache
 D:\C#\TodoApi\obj\Debug\net8.0\TodoApi.AssemblyInfo.cs
 D:\C#\TodoApi\obj\Debug\net8.0\TodoApi.csproj.CoreCompileInputs.cache
+D:\C#\TodoApi\obj\Debug\net8.0\TodoApi.MvcApplicationPartsAssemblyInfo.cs
 D:\C#\TodoApi\obj\Debug\net8.0\TodoApi.MvcApplicationPartsAssemblyInfo.cache
+D:\C#\TodoApi\obj\Debug\net8.0\TodoApi.sourcelink.json
 D:\C#\TodoApi\obj\Debug\net8.0\staticwebassets.build.json
 D:\C#\TodoApi\obj\Debug\net8.0\staticwebassets.development.json
 D:\C#\TodoApi\obj\Debug\net8.0\staticwebassets\msbuild.TodoApi.Microsoft.AspNetCore.StaticWebAssets.props
@@ -18,6 +25,7 @@ D:\C#\TodoApi\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.TodoA
 D:\C#\TodoApi\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.TodoApi.props
 D:\C#\TodoApi\obj\Debug\net8.0\staticwebassets.pack.json
 D:\C#\TodoApi\obj\Debug\net8.0\scopedcss\bundle\TodoApi.styles.css
+D:\C#\TodoApi\obj\Debug\net8.0\TodoApi.csproj.Up2Date
 D:\C#\TodoApi\obj\Debug\net8.0\TodoApi.dll
 D:\C#\TodoApi\obj\Debug\net8.0\refint\TodoApi.dll
 D:\C#\TodoApi\obj\Debug\net8.0\TodoApi.pdb
