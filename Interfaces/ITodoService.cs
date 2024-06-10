@@ -5,9 +5,13 @@ namespace TodoApi.Interfaces;
 
 public interface ITodoService {
   public Task<IEnumerable<TodoItemReadDto>> GetTodoItems();
-  public Task<TodoItemReadDto> GetTodoItemById(Guid id);
-  public Task<TodoItemCreateDto> CreateTodoItem(TodoItemCreateDto todoItemCreateDto);
-  public Task<TodoItemCreateDto> UpdateTodoItem(Guid id, TodoItemCreateDto todoItemCreateDto);
+  public Task<TodoItem?> GetTodoItemById(Guid id);
+  public Task CreateTodoItem(TodoItem todoItem);
+  public Task UpdateTodoItem(TodoItem todoItem);
   public Task<bool> DeleteTodoItem(Guid id);
+
+  public Task SaveChangesAsync();
+
+  public bool TodoItemExists(Guid id);
 
 }
