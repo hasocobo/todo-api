@@ -33,7 +33,14 @@ if (app.Environment.IsDevelopment())
 
 app.MapIdentityApi<IdentityUser>();
 
+app.MapPost("/logout", async (SignInManager<IdentityUser> signInManager) => 
+{
+    await signInManager.SignOutAsync().ConfigureAwait(false);
+});
+
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
