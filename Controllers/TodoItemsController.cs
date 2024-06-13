@@ -30,7 +30,7 @@ namespace TodoApi.Controllers
         public async Task<ActionResult<IEnumerable<TodoItemReadDto>>> GetTodoItems()
         {
             var todoItems = await _todoService.GetTodoItems();
-            
+
             var todoItemsReadDto = todoItems.Select(item => new TodoItemReadDto
             {
                 Id = item.Id,
@@ -72,6 +72,12 @@ namespace TodoApi.Controllers
         public async Task<ActionResult> PostTodoItem(TodoItemCreateDto todoItemCreateDto)
         {
             var category = await _todoService.GetCategoryByName(todoItemCreateDto.CategoryName);
+
+            if (category == null)
+            {
+                return BadRequest($"Category {todoItemCreateDto.CategoryName} not found");
+            }
+
             var todoItem = new TodoItem
             {
                 Name = todoItemCreateDto.Name,
@@ -90,6 +96,13 @@ namespace TodoApi.Controllers
         {
             var existingTodoItem = await _todoService.GetTodoItemById(id);
 
+            var category = await _todoService.GetCategoryByName(todoItemCreateDto.CategoryName);
+
+            if (category == null)
+            {
+                return BadRequest($"Category {todoItemCreateDto.CategoryName} not found");
+            }
+
             if (existingTodoItem == null)
             {
                 return NotFound();
@@ -97,22 +110,10 @@ namespace TodoApi.Controllers
 
             existingTodoItem.Name = todoItemCreateDto.Name;
             existingTodoItem.IsComplete = todoItemCreateDto.IsComplete;
+            existingTodoItem.CategoryId = category.Id;
 
-            try
-            {
-                await _todoService.UpdateTodoItem(existingTodoItem);
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!_todoService.TodoItemExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await _todoService.UpdateTodoItem(existingTodoItem);
+
 
             return NoContent();
         }
