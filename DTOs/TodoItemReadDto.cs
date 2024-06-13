@@ -7,5 +7,5 @@ public class TodoItemReadDto {
 
   public string? CategoryName { get; set; }
 
-  public Guid CategoryId { get; set; }
+  public Guid? CategoryId { get; set; }
 }

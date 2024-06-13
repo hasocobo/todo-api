@@ -76,7 +76,7 @@ namespace TodoApi.Controllers
             {
                 Name = todoItemCreateDto.Name,
                 IsComplete = todoItemCreateDto.IsComplete,
-                CategoryId = category.Id
+                CategoryId = category?.Id
             };
 
             await _todoService.CreateTodoItem(todoItem);

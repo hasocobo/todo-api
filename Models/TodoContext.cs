@@ -13,8 +13,8 @@ public class TodoContext(DbContextOptions<TodoContext> options) : IdentityDbCont
     {
         base.OnModelCreating(builder);
         builder.Entity<TodoItem>()
-            .HasOne<Category>()
-            .WithMany()
+            .HasOne(e => e.Category)
+            .WithMany(e => e.TodoItems)
             .HasForeignKey(e => e.CategoryId);
     }
 

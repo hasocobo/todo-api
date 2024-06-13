@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using TodoApi.Models;
 using TodoApi.Interfaces;
 using TodoApi.Services;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +14,14 @@ builder.Services.AddIdentityApiEndpoints<IdentityUser>()
 
 builder.Services.AddAuthorization();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions
+            .ReferenceHandler = ReferenceHandler.IgnoreCycles;
+        options.JsonSerializerOptions
+            .WriteIndented = true;
+    });
 
 builder.Services.AddDbContext<TodoContext>(opt =>
     opt.UseInMemoryDatabase("TodoList"));
@@ -36,7 +44,7 @@ if (app.Environment.IsDevelopment())
 
 app.MapIdentityApi<IdentityUser>();
 
-app.MapPost("/logout", async (SignInManager<IdentityUser> signInManager) => 
+app.MapPost("/logout", async (SignInManager<IdentityUser> signInManager) =>
 {
     await signInManager.SignOutAsync().ConfigureAwait(false);
 });

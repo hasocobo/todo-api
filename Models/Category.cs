@@ -14,6 +14,6 @@ public class Category
 
   public required string Name { get; set; }
 
-  public ICollection<TodoItem>? TodoItems { get; set; } = new List<TodoItem>();
+  public ICollection<TodoItem>? TodoItems { get; } = new List<TodoItem>();
 
 }

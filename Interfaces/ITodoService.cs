@@ -17,6 +17,6 @@ public interface ITodoService {
   public Task<IEnumerable<Category>> GetCategories();
   public Task CreateCategory(Category category);
 
-  public Task<Category> GetCategoryByName(string categoryName);
+  public Task<Category?> GetCategoryByName(string categoryName);
 
 }
