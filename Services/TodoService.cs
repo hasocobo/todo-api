@@ -16,10 +16,7 @@ public class TodoService : ITodoService
 
     public async Task CreateTodoItem(TodoItem todoItem)
     {
-        if (todoItem == null)
-        {
-            throw new ArgumentNullException(nameof(todoItem));
-        }
+        ArgumentNullException.ThrowIfNull(todoItem);
 
         await _context.TodoItems.AddAsync(todoItem);
         await SaveChangesAsync();
@@ -43,21 +40,33 @@ public class TodoService : ITodoService
         return await _context.TodoItems.FindAsync(id);
     }
 
-    public async Task<IEnumerable<TodoItemReadDto>> GetTodoItems()
+    public async Task<IEnumerable<TodoItem>> GetTodoItems()
     {
-        return await _context.TodoItems
-            .Select(item => new TodoItemReadDto
-            {
-                Id = item.Id,
-                Name = item.Name,
-                IsComplete = item.IsComplete
-            }).ToListAsync();
+        return await _context.TodoItems.Include(c => c.Category).ToListAsync();
     }
 
     public async Task UpdateTodoItem(TodoItem todoItem)
     {
         _context.Entry(todoItem).State = EntityState.Modified;
         await SaveChangesAsync();
+    }
+
+    public async Task<IEnumerable<Category>> GetCategories()
+    {
+        return await _context.Categories
+            .Include(c => c.TodoItems)
+            .ToListAsync();
+    }
+
+    public async Task CreateCategory(Category category) 
+    {
+        await _context.Categories.AddAsync(category);
+        await SaveChangesAsync();
+    }
+
+    public async Task<Category> GetCategoryByName(string categoryName)
+    {
+        return await _context.Categories.SingleOrDefaultAsync(c => c.Name == categoryName);
     }
 
     public async Task SaveChangesAsync()

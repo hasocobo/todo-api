@@ -7,7 +7,6 @@ using TodoApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 // Add services to the container.
 builder.Services.AddIdentityApiEndpoints<IdentityUser>()
     .AddEntityFrameworkStores<TodoContext>();
@@ -24,8 +23,6 @@ builder.Services.AddScoped<ITodoService, TodoService>();
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen();
-
-
 
 
 var app = builder.Build();

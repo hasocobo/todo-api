@@ -13,7 +13,7 @@ using TodoApi.Services;
 
 namespace TodoApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     /*[Authorize]*/
     public class TodoItemsController : ControllerBase
@@ -30,8 +30,17 @@ namespace TodoApi.Controllers
         public async Task<ActionResult<IEnumerable<TodoItemReadDto>>> GetTodoItems()
         {
             var todoItems = await _todoService.GetTodoItems();
+            
+            var todoItemsReadDto = todoItems.Select(item => new TodoItemReadDto
+            {
+                Id = item.Id,
+                Name = item.Name,
+                IsComplete = item.IsComplete,
+                CategoryName = item.Category?.Name,
+                CategoryId = item.CategoryId
+            }).ToList();
 
-            return Ok(todoItems);
+            return Ok(todoItemsReadDto);
         }
 
 
@@ -50,7 +59,9 @@ namespace TodoApi.Controllers
             {
                 Id = todoItem.Id,
                 IsComplete = todoItem.IsComplete,
-                Name = todoItem.Name
+                Name = todoItem.Name,
+                CategoryName = todoItem.Category?.Name,
+                CategoryId = todoItem.CategoryId
             };
 
             return todoItemReadDto;
@@ -60,15 +71,15 @@ namespace TodoApi.Controllers
         [HttpPost]
         public async Task<ActionResult> PostTodoItem(TodoItemCreateDto todoItemCreateDto)
         {
+            var category = await _todoService.GetCategoryByName(todoItemCreateDto.CategoryName);
             var todoItem = new TodoItem
             {
                 Name = todoItemCreateDto.Name,
-                IsComplete = todoItemCreateDto.IsComplete
+                IsComplete = todoItemCreateDto.IsComplete,
+                CategoryId = category.Id
             };
 
             await _todoService.CreateTodoItem(todoItem);
-
-            await _todoService.SaveChangesAsync();
 
             return CreatedAtAction(nameof(PostTodoItem), new { id = todoItem.Id }, todoItem);
         }
