@@ -31,14 +31,17 @@ namespace TodoApi.Controllers
         {
             var todoItems = await _todoService.GetTodoItems();
 
-            var todoItemsReadDto = todoItems.Select(item => new TodoItemReadDto
+            var todoItemsReadDto = todoItems.Select
+            (item => new TodoItemReadDto
             {
                 Id = item.Id,
                 Name = item.Name,
                 IsComplete = item.IsComplete,
                 CategoryName = item.Category?.Name,
-                CategoryId = item.CategoryId
-            }).ToList();
+                CategoryId = item.CategoryId,
+                CreationTime = item.CreationTime
+            }
+            ).ToList();
 
             return Ok(todoItemsReadDto);
         }
@@ -60,6 +63,7 @@ namespace TodoApi.Controllers
                 Id = todoItem.Id,
                 IsComplete = todoItem.IsComplete,
                 Name = todoItem.Name,
+                CreationTime = todoItem.CreationTime,
                 CategoryName = todoItem.Category?.Name,
                 CategoryId = todoItem.CategoryId
             };
@@ -115,7 +119,7 @@ namespace TodoApi.Controllers
             await _todoService.UpdateTodoItem(existingTodoItem);
 
 
-            return NoContent();
+            return Ok();
         }
 
 

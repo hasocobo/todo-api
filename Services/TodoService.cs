@@ -73,6 +73,33 @@ public class TodoService : ITodoService
             .SingleOrDefaultAsync(c => c.Name == categoryName);
     }
 
+    public async Task<Category?> GetCategoryById(Guid id)
+    {
+        return await _context.Categories
+            .Include(c => c.TodoItems)
+            .SingleOrDefaultAsync(c => c.Id == id);
+
+    }
+
+    public async Task<bool> DeleteCategory(Guid id)
+    {
+        var category = await _context.Categories.FindAsync(id);
+        if (category == null)
+        {
+            return false;
+        }
+
+        _context.Categories.Remove(category);
+        await SaveChangesAsync();
+        return true;
+    }
+
+    public async Task UpdateCategory(Category category)
+    {
+        _context.Entry(category).State = EntityState.Modified;
+        await SaveChangesAsync();
+    }
+
     public async Task SaveChangesAsync()
     {
         await _context.SaveChangesAsync();

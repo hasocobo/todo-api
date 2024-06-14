@@ -27,7 +27,7 @@ public class CategoriesController : ControllerBase
   {
     var category = await _todoService.GetCategoryByName(name);
 
-    if (category == null) 
+    if (category == null)
     {
       return NotFound();
     }
@@ -50,4 +50,34 @@ public class CategoriesController : ControllerBase
 
     return BadRequest();
   }
+
+  [HttpPut("{id}")]
+  public async Task<IActionResult> PutCategory(Guid id, CategoryCreateDto categoryCreateDto) 
+  { 
+    var existingCategory = await _todoService.GetCategoryById(id);
+
+    if(existingCategory == null)
+    {
+      return BadRequest();
+    }
+
+    existingCategory.Name = categoryCreateDto.Name;
+
+    await _todoService.UpdateCategory(existingCategory);
+
+    return Ok();
+  }
+
+  [HttpDelete("{id}")]
+  public async Task<IActionResult> DeleteCategory(Guid id)
+  {
+    var success = await _todoService.DeleteCategory(id);
+
+    if (!success)
+    {
+      return NotFound();
+    }
+    return NoContent();
+  }
+
 }

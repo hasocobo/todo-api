@@ -7,5 +7,7 @@ public class TodoItemReadDto {
 
   public string? CategoryName { get; set; }
 
+  public DateTime CreationTime { get; set; }
+
   public Guid? CategoryId { get; set; }
 }
